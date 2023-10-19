@@ -1,3 +1,61 @@
+const express = require("express");
+const path = require("path");
+const connectDB = require("./config/connect");
+const session = require("express-session");
+const flash = require("connect-flash");
+const morgan = require("morgan");
+const mongoose = require("mongoose");
+const expressEJSLayout = require("express-ejs-layouts");
+const passport = require("passport");
+//we tell it where the local strategy is
+require("./config/passport")(passport);
+require("dotenv").config();
+const router = express.Router();
+const app = express();
+
+//Development tools
+app.use(morgan("tiny"))
+//EJS
+app.set("view engine", "ejs");
+app.use(express.static('./views/public'))
+app.use(expressEJSLayout);
+//Body parser
+app.use(express.urlencoded({extended: false}));
+//express session
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+//use flash messaging -- express
+//sets that up
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash("success_msg");
+    res.locals.error_msg = req.flash("error_msg");
+    res.locals.error = req.flash("error");
+    next();
+})
+//Routes
+app.use("/", require("./routes/index"));
+app.use("/users", require("./routes/users"));
+app.use("/animals", require("./routes/animals"));
+app.use("/animalAPI", require("./routes/api"))
+
+const initServer = async() => {
+    try {
+        await connectDB(process.env.MONGO_URI);
+        app.listen(process.env.PORT || 5000, () => {
+            console.log("Listening on port 5000");
+        })
+    } catch(err) {
+        console.log(err);
+    }
+}
+initServer();
+
 //travel agency business storefront
 //find airports near cities
 //cities near airport
@@ -29,40 +87,24 @@
 //if they're favorited we save flight number and airline as well as date and airports because we need that to find it again when they go to their profile page
 //100 requests per month
 
-const express = require("express");
-const app = express();
-const path = require("path");
-const taskRoute = require("./routes/taskController")
-const userRoute = require("./routes/userController");
-require("dotenv").config();
-const connectDB = require("./db/connect");
+//we need a list of airports
+//and a list of flights that I can query myself
+//i can't just get all the flights, just specific ones
 
-//Static assets
-app.use(express.static("./public"));
-//Parse Form and JSON Data
-app.use(express.urlencoded({extended: false}));
-app.use(express.json());
+//I'm not doing that, new ideas! It needs to be something with products
+//it can be fake things? like dress things like random color and random name and random image
+//we can do random cars of random make and model
+//stock stuff, maybe stuff for a store, drug stuff (like medical, fda-approved)
+//apps? complete with random stuff
+//random places, random fake hotel places? homes for sale?
+//animals and plants (like you can sponsor an animal at a zoo)
+//people (maybe a database of potential employees or something like that)
+//grocery items, like shopping like doordash-ish
 
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/index.html"))
-})
-app.get("/edit", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/edit.html"))
-})
-app.get("/editUser", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/editUser.html"))
-})
-app.use("/tasks", taskRoute);
-app.use("/users", userRoute);
-
-const initServer = async() => {
-    try {
-        await connectDB(process.env.MONGO_URI);
-        app.listen(5000, () => {
-            console.log("Listening on port 5000");
-        })
-    } catch(err) {
-        console.log(err);
-    }
-}
-initServer();
+//top choices: grocery store products, potential employees, animals, addresses
+//mockaroo can give me a sample database of 1000 animals and the countries where they live (in a zoo)
+//they can search by animals in a specific country, and then we show all of them
+//and then when they click on them, we can use a data-filled page with what we get from the API-ninjas api? and they can favorite that animal and then it'll be on their page
+//would 3000 a month be enough for that? I'm not going to look up that many animals
+//the "database" can be ones I've seen that I know are nice animals
+//they can also search by type of animal, and we can check if the animal names include it, period, and then have a page for those results
