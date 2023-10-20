@@ -1,27 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const {ensureAuthenticated} = require("../config/auth");
-const axios = require("axios");
+let Animal = require("../models/animal");
 
-async function getUser() {
-  try {
-    const response = await axios.get('/user?ID=12345');
-    console.log(response);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-//country animals, animal animals, one animal
-//we have to make the case match
-
-//the problem's with the axios
 router.get("/country", async (req, res) => {
-    const {country} = req.body;
-    let animals = await axios.get(`/`);
-    console.log(animals)
-    //res.send(country);
-    res.send(animals);
+  try {
+    let {country} = req.body;
+    if(!country) {
+      res.json({success: false, msg: "Please enter a country in the request body"});
+    }
+    let item = await Animal.find({country: {$regex:country, $options: "i"}});
+    res.render("pages/countrySearch", {item});
+  } catch(err) {
+    console.log(err);
+  }
 })
 
 module.exports = router;

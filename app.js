@@ -17,7 +17,7 @@ const app = express();
 app.use(morgan("tiny"))
 //EJS
 app.set("view engine", "ejs");
-app.use(express.static('./views/public'))
+app.use(express.static('./public'))
 app.use(expressEJSLayout);
 //Body parser
 app.use(express.urlencoded({extended: false}));
@@ -42,7 +42,8 @@ app.use((req, res, next) => {
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 app.use("/animals", require("./routes/animals"));
-app.use("/animalAPI", require("./routes/api"))
+app.use("/animalAPI", require("./routes/api"));
+// app.use('/public', express.static('./views/public'))
 
 const initServer = async() => {
     try {
