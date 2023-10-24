@@ -43,7 +43,7 @@ app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 app.use("/animals", require("./routes/animals"));
 app.use("/animalAPI", require("./routes/api"));
-// app.use('/public', express.static('./views/public'))
+app.use('/public', express.static('./public'))
 
 const initServer = async() => {
     try {

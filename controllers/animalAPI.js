@@ -16,9 +16,11 @@ const getAllAnimals = async(req, res) => {
 //get country from body
 const getByCountry = async(req, res) => {
     try {
+        console.log(req);
         let {country} = req.body;
+        console.log(country);
         if(!country) {
-            res.json({success: false, msg: "Please enter a country in the request body"});
+            return res.json({success: false, data: "Please enter a country in the request body"});
         }
         let item = await Animal.find({country: {$regex: country, $options: "i"}});
         res.json({success: true, data: item});
@@ -32,7 +34,7 @@ const getByAnimal = async(req, res) => {
     try {
         let {animal} = req.body;
         if(!animal) {
-            res.json({success: false, msg: "Please enter an animal in the request body"});
+            return res.json({success: false, data: "Please enter an animal in the request body"});
         }
         let item = await Animal.find({animal: {$regex: animal, $options: "i"}});
         res.json({success: true, data: item});
