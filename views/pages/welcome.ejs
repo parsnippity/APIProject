@@ -3,4 +3,15 @@
     <p>Create an account or login!</p>
     <a href="/users/register">Register</a>
     <a href="/users/login">Login</a>
+    <form action="/animals/oneKind" method="GET" id="bitOne">
+        <label for="animal">search for animals by name:</label>
+        <input type="text" name="animal" id="animal">
+        <button type="submit" class="btns">Submit</button>
+    </form>
+    <form action="/animals/country" method="GET">
+        <label for="country">search for animals in a country:</label>
+        <input type="text" name="country" id="country">
+        <button type="submit" id="btnTwo">Search</button>
+    </form>
+    <script src="/public/welcome.js"></script>
 </div>
