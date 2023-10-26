@@ -2,8 +2,8 @@
     <h1>Welcome!</h1>
     <p>Create an account or login!</p>
     <a href="/users/register">Register</a>
-    <a href="/users/login">Login</a>
-    <form action="/animals/oneKind" method="GET" id="bitOne">
+    <a href=<%=url%>><%=label%></a>
+    <form action="/animals/oneKind" method="GET">
         <label for="animal">search for animals by name:</label>
         <input type="text" name="animal" id="animal">
         <button type="submit" class="btns">Submit</button>
@@ -13,5 +13,6 @@
         <input type="text" name="country" id="country">
         <button type="submit" id="btnTwo">Search</button>
     </form>
+    <div><%=msg%></div>
     <script src="/public/welcome.js"></script>
 </div>

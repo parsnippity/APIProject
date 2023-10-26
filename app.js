@@ -1,10 +1,9 @@
-//the axios body problem is no issue in the public js files, the api urls aren't seen so they can have queries, but they may be an issue with the search buttons sending them to pages
-//but I guess those can be forms
 //formatting, sign in, describe api, fill one animal pages with external api info
-//make the home page so they can search, reformat so they can search on the other pages too
+//reformat so they can search on the other pages too
 //navbar!
 //upload to the database
 //they need to be able to favorite! and then put those on the dashboard!
+//-->Error-Handler: that acts as a buffer to report errors and continue on to ANY other middleware //-->NotFound: returns status of 404 and message of none existing route
 
 const express = require("express");
 const path = require("path");

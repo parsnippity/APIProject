@@ -3,7 +3,7 @@ const ensureAuthenticated = (req, res, next) => {
         //req.isAuthenticated will return true if the user is logged in
         next()
     } else {
-        req.flash("error_msg", "please login to view this resource")
+        req.flash("error_msg", "please login to do this")
         res.redirect("/users/login");
     }
 }

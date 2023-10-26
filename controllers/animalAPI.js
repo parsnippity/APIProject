@@ -22,6 +22,9 @@ const getByCountry = async(req, res) => {
             return res.json({success: false, data: "Please enter a country in the request body"});
         }
         let item = await Animal.find({country: {$regex: country, $options: "i"}});
+        if(!item[0]){
+            return res.json({success: false, data: "there are no animals in that country"})
+        }
         res.json({success: true, data: item});
     } catch(err) {
         console.log(err);
@@ -36,6 +39,9 @@ const getByAnimal = async(req, res) => {
             return res.json({success: false, data: "Please enter an animal in the request body"});
         }
         let item = await Animal.find({animal: {$regex: animal, $options: "i"}});
+        if(!item[0]){
+            return res.json({success: false, data: "there are no animals by that name"})
+        }
         res.json({success: true, data: item});
     } catch(err) {
         console.log(err);

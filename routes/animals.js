@@ -2,20 +2,27 @@ const express = require("express");
 const router = express.Router();
 const {ensureAuthenticated} = require("../config/auth");
 let Animal = require("../models/animal");
-//for now, queries
 
+//for now, queries
 router.get("/country", async (req, res) => {
   try {
-    let {country} = req.body;
-    //we need to change this back so it gets it from the body (if that will even work, this may need to use queries too)
-    // let {country} = req.body;
-    // if(!country) {
-    //   return res.json({success: false, msg: "Please enter a country in the request body"});
-    // }
-    let item = await Animal.find({country: {$regex:country, $options: "i"}});
-    if(!item) {
-        return res.json({success: false, msg: "There are no animals in that country"})
-    }
+    let {country} = req.query;
+    console.log(country);
+        if(!country) {
+            if(req.isAuthenticated()) {
+                return res.render("pages/welcome", {
+                    url: "/dashboard",
+                    label: "Dashboard",
+                    msg: "Please enter a country in the search field"
+                })
+            } else {
+                return res.render("pages/welcome", {
+                    url: "/users/login",
+                    label: "Login",
+                    msg: "Please enter a country in the search field"
+                })
+            }
+        }
     res.render("pages/countrySearch", {search: country});
   } catch(err) {
     console.log(err);
@@ -34,13 +41,22 @@ router.get("/all", (req, res) => {
 router.get("/oneKind", async(req,res) => {
     try {
         //we need to change this back so it gets it from the body (if that will even work, this may need to use queries too)
-        let {animal} = req.body;
+        let {animal} = req.query;
+        console.log(animal);
         if(!animal) {
-            return res.json({success: false, msg: "Please enter an animal in the request body"});
-        }
-        let item = await Animal.find({animal: {$regex:animal, $options: "i"}});
-        if(!item) {
-            return res.json({success: false, msg: "There are no animals by that name"})
+            if(req.isAuthenticated()) {
+                return res.render("pages/welcome", {
+                    url: "/dashboard",
+                    label: "Dashboard",
+                    msg: "Please enter an animal in the search field"
+                })
+            } else {
+                return res.render("pages/welcome", {
+                    url: "/users/login",
+                    label: "Login",
+                    msg: "Please enter an animal in the search field"
+                })
+            }
         }
         res.render("pages/oneAnimalKind", {search: animal});
     } catch(err) {
@@ -56,7 +72,7 @@ router.get("/one/:animal/:country", async(req, res) => {
             return res.json({success: false, msg: "Please enter both an animal and a country in the url"});
         }
         let item = Animal.find({country: {$regex:country, $options: "i"}}, {animal: {$regex:animal, $options: "i"}});
-        if(!item) {
+        if(!item[0]) {
             return res.json({success: false, msg: "That animal does not exist"})
         }
         res.render("pages/oneAnimal", {animal: animal, country: country})

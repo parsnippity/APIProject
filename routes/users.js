@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require("../models/user")
-
+const {ensureAuthenticated} = require("../config/auth");
 
 //login handler
 router.get("/login", (req, res) => {
@@ -108,5 +108,13 @@ router.get("/logout", (req, res) => {
     res.redirect("/")
 })
 
+//wip
+router.post("/addFavorite", (req, res) => {
+    if(!req.isAuthenticated()){
+        return res.json({success: false});
+    }
+    console.log(req.user);
+    console.log(req.body);
+})
 
 module.exports = router;

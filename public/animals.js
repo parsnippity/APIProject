@@ -10,9 +10,15 @@ let fillPage = async function() {
         })
         let h1 = document.createElement("h1");
         h1.innerHTML = data[i].animal;
+        let btn = document.createElement("button");
+        btn.addEventListener("click", async function() {
+            await axios.put("/users/addFavorite", {animal: data[i].animal+"in"+data[i].country});
+        })
+        btn.innerHTML = "favorite";
         let h3 = document.createElement("h3");
         h3.innerHTML = data[i].country;
         div.appendChild(h1);
+        div.appendChild(btn);
         div.appendChild(h3);
         all.appendChild(div);
     }

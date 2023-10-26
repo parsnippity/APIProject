@@ -33,7 +33,6 @@ module.exports = function(passport) {
     //it makes a little session and then the user information is added to every request in that session
     passport.deserializeUser(function(id, done) {
         User.findById(id).then((user, err) => {
-            console.log(err);
             if(err) return done(err);
             done(err, user);
         }).catch((err) => console.log(err));

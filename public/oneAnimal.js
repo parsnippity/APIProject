@@ -23,3 +23,6 @@ try {
 //replace _s with  s
 //break up colors if they're squished
 //just do the top one
+
+//I should make this a route
+//wip

@@ -4,8 +4,19 @@ const {ensureAuthenticated} = require("../config/auth");
 
 //homepage page
 router.get("/", (req, res) => {
-    //looking for the page called welcome
-    res.render("pages/welcome")
+    if(req.isAuthenticated()) {
+        res.render("pages/welcome", {
+            url: "/dashboard",
+            label: "Dashboard",
+            msg: ""
+        })
+    } else {
+        res.render("pages/welcome", {
+            url: "/users/login",
+            label: "Login",
+            msg: ""
+        })
+    }
 })
 
 //dashboard-Homepage redirect
