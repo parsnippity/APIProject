@@ -4,6 +4,7 @@
 //upload to the database
 //they need to be able to favorite! and then put those on the dashboard!
 //-->Error-Handler: that acts as a buffer to report errors and continue on to ANY other middleware //-->NotFound: returns status of 404 and message of none existing route
+//pagination for all the pages
 
 const express = require("express");
 const path = require("path");
@@ -27,7 +28,7 @@ app.set("view engine", "ejs");
 app.use(express.static('./public'))
 app.use(expressEJSLayout);
 //Body parser
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 //express session
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -51,6 +52,7 @@ app.use("/users", require("./routes/users"));
 app.use("/animals", require("./routes/animals"));
 app.use("/animalAPI", require("./routes/api"));
 app.use('/public', express.static('./public'))
+app.use("/externalAPI", require("./routes/externalAPI"));
 
 const initServer = async() => {
     try {

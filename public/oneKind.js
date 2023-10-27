@@ -22,16 +22,18 @@ let fillPage = async function() {
             let h1 = document.createElement("h1");
             h1.innerHTML = data[i].animal;
             let btn = document.createElement("button");
-            //wip
             btn.addEventListener("click", async function() {
-                //no body!!!
-                let test = await axios.request({
-                    method: 'post',
-                    url: '/users/addFavorite',
-                    data: {
-                        animal: data[i].animal+"in"+data[i].country
-                    }
-                });
+                form_data = []
+                var encodedKey  =  encodeURIComponent("animal")
+                var encodedValue = encodeURIComponent(`${data[i].animal}in${data[i].country}`)
+                form_data.push(encodedKey + "=" + encodedValue)
+                let test = await fetch('/users/addFavorite', {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded"
+                    },
+                    body:form_data
+                })
                 if(!test.success){
                     window.location.assign("/users/login");
                 }
