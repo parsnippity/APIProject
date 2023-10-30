@@ -5,6 +5,8 @@
 //they need to be able to favorite! and then put those on the dashboard!
 //-->Error-Handler: that acts as a buffer to report errors and continue on to ANY other middleware //-->NotFound: returns status of 404 and message of none existing route
 //pagination for all the pages
+//api description home page
+//WIREFRAMES wip
 
 const express = require("express");
 const path = require("path");

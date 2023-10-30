@@ -71,7 +71,8 @@ router.get("/one/:animal/:country", async(req, res) => {
         if(!animal || !country || (!animal && !country)) {
             return res.json({success: false, msg: "Please enter both an animal and a country in the url"});
         }
-        let item = Animal.find({country: {$regex:country, $options: "i"}}, {animal: {$regex:animal, $options: "i"}});
+        //the regex $ errors
+        let item = await Animal.find({country: { $regex:country, $options: "i"}, animal: { $regex:animal, $options: "i"}});
         if(!item[0]) {
             return res.json({success: false, msg: "That animal does not exist"})
         }

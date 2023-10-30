@@ -90,6 +90,7 @@ router.post("/register", (req, res) => {
 
 //Login
 router.post("/login", (req, res, next) => {
+    //wip they shouldn't be able to go here if they're logged in, redirect to dashboard if they are
     //this is using the localstrategy from the passport.js middleware to check if it's correct
     //sends them to the password if so, else send them back to the login page
     passport.authenticate("local", {
@@ -108,13 +109,33 @@ router.get("/logout", (req, res) => {
     res.redirect("/")
 })
 
-//wip
-router.post("/addFavorite", (req, res) => {
+router.post("/addFavorite", async (req, res) => {
+    if(!req.isAuthenticated()){
+        return res.json({success: false})
+    }
+    let user = await User.findOne({email: req.user.email});
+    user.favorites.push(req.body.animal);
+    user.save();
+    return res.json({success: true});
+})
+
+router.post("/removeFavorite", async (req, res) => {
     if(!req.isAuthenticated()){
         return res.json({success: false});
     }
-    console.log(req.user);
-    console.log(req.body);
+    let user = await User.findOne({email: req.user.email});
+    let itemIndex = user.favorites.indexOf(req.body.animal);
+    if(itemIndex != -1) user.favorites.splice(itemIndex, 1);
+    user.save();
+    res.json({success: true});
+})
+
+router.get("/getFavorites", async (req, res) => {
+    if(!req.isAuthenticated()){
+        return res.json({success: false});
+    }
+    let user = await User.findOne({email: req.user.email});
+    res.json({success: true, data: user.favorites});
 })
 
 module.exports = router;

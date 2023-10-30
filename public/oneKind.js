@@ -1,3 +1,4 @@
+//wip make match
 let all = document.getElementById("bits");
 let header = document.getElementById("animalHeader")
 let fillPage = async function() {
@@ -34,7 +35,7 @@ let fillPage = async function() {
                     },
                     body:form_data
                 })
-                if(!test.success){
+                if(test.success == false){
                     window.location.assign("/users/login");
                 }
             })
