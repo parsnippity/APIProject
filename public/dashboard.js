@@ -30,7 +30,7 @@ let fillPage = async function() {
             }
         };
         let div = document.createElement("div");
-        div.classList.add("border", "border-black", "bg-primary-subtle", "p-2", "m-2", "w-25", "text-center");
+            div.classList.add("p-2", "m-2", "w-25", "text-center", "results");
         let btnOne = document.createElement("button");
         btnOne.addEventListener("click", () => {
             location.assign(`/animals/one/${data[i].animal}/${data[i].country}`);
