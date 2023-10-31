@@ -8,12 +8,14 @@ let test = async function() {
   let h1 = document.createElement("h1");
   h1.innerHTML = data.name;
   bits.appendChild(h1);
-  let h3 = document.createElement("h3");
-  h3.innerHTML = header.getAttribute("value");
-  bits.appendChild(h3);
+  bits.classList.add("animalSection");
+  let divOne = document.createElement("div");
+  divOne.id = "secondSection";
+  let divTwo = document.createElement("div");
+  divTwo.id = "taxSection";
   let h32 = document.createElement("h3");
   h32.innerHTML = "Taxonomy";
-  bits.appendChild(h32);
+  divTwo.appendChild(h32);
   for (const [key, value] of Object.entries(data.taxonomy)) {
     let p = document.createElement("p");
     let newKey = key;
@@ -21,11 +23,14 @@ let test = async function() {
       newKey = key.replace("_", " ")
     }
     p.innerHTML = `<span class="captions">${newKey}</span>: ${value}`
-    bits.appendChild(p);
+    divTwo.appendChild(p);
   }
+  divOne.appendChild(divTwo);
+  let divThree = document.createElement("div");
+  divThree.id = "charSection";
   let h33 = document.createElement("h3");
   h33.innerHTML = "Characteristics";
-  bits.appendChild(h33);
+  divThree.appendChild(h33);
   for (const [key, value] of Object.entries(data.characteristics)) {
     let p = document.createElement("p");
     let newKey = key;
@@ -54,7 +59,9 @@ let test = async function() {
       newKey = key.replace("_", " ")
     }
     p.innerHTML = `<span class="captions">${newKey}</span>: ${newValue}`
-    bits.appendChild(p);
+    divThree.appendChild(p);
   }
+  divOne.appendChild(divThree);
+  bits.appendChild(divOne);
 }
 test();
