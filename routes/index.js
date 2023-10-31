@@ -2,8 +2,13 @@ const express = require("express");
 const router = express.Router();
 const {ensureAuthenticated} = require("../config/auth");
 
-//homepage page
+//api readme page
 router.get("/", (req, res) => {
+    res.render("/pages/apihowto")
+})
+
+//homepage page
+router.get("/home", (req, res) => {
     if(req.isAuthenticated()) {
         res.render("pages/welcome", {
             url: "/dashboard",
