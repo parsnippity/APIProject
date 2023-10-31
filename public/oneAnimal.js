@@ -1,7 +1,9 @@
 let header = document.getElementById("oneHeader");
 let bits = document.getElementById("bits");
+let animalName = header.getAttribute("value");
 let test = async function() {
-  let {data} = await axios.get(`/externalAPI?name=${header.getAttribute("value")}`);
+  animalName = animalName.split(", ")[0];
+  let {data} = await axios.get(`/externalAPI?name=${animalName}`);
   data = data[0];
   let h1 = document.createElement("h1");
   h1.innerHTML = data.name;
@@ -56,5 +58,3 @@ let test = async function() {
   }
 }
 test();
-
-//with the mock data, you need to get the stuff before the comma only, make changes to that affect wip!
