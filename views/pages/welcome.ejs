@@ -1,17 +1,20 @@
-<div>
-    <h1>Welcome!</h1>
-    <p>Create an account or login!</p>
-    <a href="/users/register">Register</a>
-    <a href=<%=url%>><%=label%></a>
-    <form action="/animals/oneKind" method="GET">
-        <label for="animal">search for animals by name:</label>
-        <input type="text" name="animal" id="animal">
-        <button type="submit" class="btns">Submit</button>
-    </form>
-    <form action="/animals/country" method="GET">
-        <label for="country">search for animals in a country:</label>
-        <input type="text" name="country" id="country">
-        <button type="submit" id="btnTwo">Search</button>
-    </form>
-    <div><%=msg%></div>
-</div>
+<div id="homeMain">
+        <div id="leftHome">
+            <h3>Search by Animal</h3>
+            <h3>Search by Country</h3>
+            <h3>View Animal Facts</h3>
+        </div>
+        <div id="rightHome">
+            <form action="/animals/oneKind" method="GET">
+                <label for="animal">Search for Animals by Name:</label>
+                <input type="text" name="animal" id="animal">
+                <button type="submit" class="btns">Search</button>
+            </form>
+            <form action="/animals/country" method="GET">
+                <label for="country">Search for Animals in a Country:</label>
+                <input type="text" name="country" id="country">
+                <button type="submit" id="btnTwo">Search</button>
+            </form>
+            <div><%=msg%></div>
+        </div>
+    </div>

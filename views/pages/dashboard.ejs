@@ -1,7 +1,12 @@
+<a href="/">home page</a>
 <h1>Dashboard</h1>
 
-<p>Welcome <%=user.firstName%></p>
-
+<h3>Welcome <%=user.firstName%></h3>
+<h3><%=user.email%></h3>
 <a href="/users/logout">Logout</a>
-<a href="/">home page</a>
+
+<div id="bits"></div>
 <!--wip-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+<script src="/public/dashboard.js"></script>

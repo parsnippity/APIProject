@@ -22,6 +22,8 @@ router.get("/", (req, res) => {
 //dashboard-Homepage redirect
 router.get("/dashboard",ensureAuthenticated,(req, res)=> {
     res.render("pages/dashboard", {
+        url: "/dashboard",
+        label: "Dashboard",
         user: req.user
     })
 })

@@ -7,12 +7,28 @@ const {ensureAuthenticated} = require("../config/auth");
 
 //login handler
 router.get("/login", (req, res) => {
-    res.render("pages/login")
+    if(req.isAuthenticated()){
+        return res.redirect("/dashboard");
+    }
+    res.render("pages/login", {
+        url: "/users/login",
+        label: "Login",
+    })
 })
 
 //register page
 router.get("/register", (req, res) => {
-    res.render("pages/register")
+    if(req.isAuthenticated()) {
+        res.render("pages/register", {
+            url: "/dashboard",
+            label: "Dashboard"
+        })
+    } else {
+        res.render("pages/register", {
+            url: "/users/login",
+            label: "Login"
+        })
+    }
 })
 
 //Register handle
@@ -37,13 +53,27 @@ router.post("/register", (req, res) => {
     //if there are errors, cancel and display them
     if(errors.length > 0) {
         console.log(errors);
-        res.render("pages/register", {
-            errors: errors,
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            password: password
-        })
+        if(req.isAuthenticated()) {
+            return res.render("pages/register", {
+                errors: errors,
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
+                url: "/dashboard",
+                label: "Dashboard"
+            })
+        } else {
+            return res.render("pages/register", {
+                errors: errors,
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
+                url: "/users/login",
+                label: "Login"
+            })
+        }
     } else {
         //validation passed
         User.findOne({email: email}).then((err, user) => {
@@ -53,14 +83,29 @@ router.post("/register", (req, res) => {
                 //making sure it's unique
                 errors.push({msg: "that email is already registered"})
                 console.log(errors);
-                res.render("pages/register", {
-                    errors: errors,
-                    firstName: firstName,
-                    lastName: lastName,
-                    email: email,
-                    password: password,
-                    password2: password2
-                });
+                if(req.isAuthenticated()) {
+                    return res.render("pages/register", {
+                        errors: errors,
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        password: password,
+                        password2: password2,
+                        url: "/dashboard",
+                        label: "Dashboard"
+                    })
+                } else {
+                    return res.render("pages/register", {
+                        errors: errors,
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        password: password,
+                        password2: password2,
+                        url: "/users/login",
+                        label: "Login"
+                    })
+                }
             } else {
                 const newUser = new User({
                     firstName: firstName,
@@ -90,9 +135,8 @@ router.post("/register", (req, res) => {
 
 //Login
 router.post("/login", (req, res, next) => {
-    //wip they shouldn't be able to go here if they're logged in, redirect to dashboard if they are
     //this is using the localstrategy from the passport.js middleware to check if it's correct
-    //sends them to the password if so, else send them back to the login page
+    //sends them to the dashboard if so, else send them back to the login page
     passport.authenticate("local", {
         successRedirect: "/dashboard",
         failureRedirect: "/users/login",

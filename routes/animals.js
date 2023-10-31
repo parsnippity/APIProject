@@ -23,7 +23,19 @@ router.get("/country", async (req, res) => {
                 })
             }
         }
-    res.render("pages/countrySearch", {search: country});
+    if(req.isAuthenticated()) {
+        return res.render("pages/countrySearch", {
+            url: "/dashboard",
+            label: "Dashboard",
+            search: country
+        })
+    } else {
+        return res.render("pages/countrySearch", {
+            url: "/users/login",
+            label: "Login",
+            search: country
+        })
+    }
   } catch(err) {
     console.log(err);
   }
@@ -31,7 +43,17 @@ router.get("/country", async (req, res) => {
 
 router.get("/all", (req, res) => {
     try {
-        res.render("pages/allAnimals");
+        if(req.isAuthenticated()) {
+            return res.render("pages/allAnimals", {
+                url: "/dashboard",
+                label: "Dashboard"
+            })
+        } else {
+            return res.render("pages/allAnimals", {
+                url: "/users/login",
+                label: "Login"
+            })
+        }
     } catch(err) {
         console.log(err)
     }
@@ -58,7 +80,19 @@ router.get("/oneKind", async(req,res) => {
                 })
             }
         }
-        res.render("pages/oneAnimalKind", {search: animal});
+        if(req.isAuthenticated()) {
+            return res.render("pages/oneAnimalKind", {
+                url: "/dashboard",
+                label: "Dashboard",
+                search: animal
+            })
+        } else {
+            return res.render("pages/oneAnimalKind", {
+                url: "/users/login",
+                label: "Login",
+                search: animal
+            })
+        }
     } catch(err) {
         console.log(err);
     }
@@ -76,7 +110,21 @@ router.get("/one/:animal/:country", async(req, res) => {
         if(!item[0]) {
             return res.json({success: false, msg: "That animal does not exist"})
         }
-        res.render("pages/oneAnimal", {animal: animal, country: country})
+        if(req.isAuthenticated()) {
+            return res.render("pages/oneAnimal", {
+                url: "/dashboard",
+                label: "Dashboard",
+                animal: animal,
+                country: country
+            })
+        } else {
+            return res.render("pages/oneAnimal", {
+                url: "/users/login",
+                label: "Login",
+                animal: animal,
+                country: country
+            })
+        }
     } catch(err) {
         console.log(err);
     }

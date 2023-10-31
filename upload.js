@@ -1,23 +1,11 @@
-//wip
-//const Task = require("./models/Task");
-const User = require("./models/user");
-const taskData = require("./taskData");
-const taskArray = taskData.tasks;
-const userData = require("./userData");
-const userArray = userData.users;
+let hello = async function() {const Animal = require("./models/animal");
+const animalData = require("./MOCK_DATA");
 require("dotenv").config();
 const connectDB = require("./db/connect");
 
-const uploadTasks = async() => {
+const uploadAnimals = async() => {
     try {
-        await Task.create(taskArray);
-    } catch(err) {
-        console.log(err);
-    }
-}
-const uploadUsers = async() => {
-    try {
-        await User.create(userArray);
+        await Animal.create(animalData);
     } catch(err) {
         console.log(err);
     }
@@ -25,4 +13,6 @@ const uploadUsers = async() => {
 const connect = async() => {
     await connectDB(process.env.MONGO_URI);
 }
-connect().then(uploadUsers()).then(uploadTasks());
+connect().then(uploadAnimals())
+}
+module.exports = hello();

@@ -1,0 +1,84 @@
+#homeMain {
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+  height: 90%;
+  align-content: center;
+  flex-wrap: wrap;
+  background-image: url("//res.cloudinary.com/daiu5iwi1/image/upload/v1698788348/Trees_in_the_Forest_fu1kxg.jpg");
+}
+#homeMain div {
+  text-align: center;
+}
+
+input, button, .results {
+  border: darkgreen 0.125em solid;
+  background-color: white;
+  border-radius: 0.5em;
+}
+
+.results button {
+  margin: 5px;
+}
+
+.searchHeader {
+  text-align: center;
+  height: 10%;
+  background-image: url("//res.cloudinary.com/daiu5iwi1/image/upload/v1698788348/Trees_in_the_Forest_fu1kxg.jpg");
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+}
+
+#leftHome {
+  min-width: 50%;
+  height: 100%;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#leftHome h3 {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  border-bottom: darkgreen 0.125em solid;
+}
+#leftHome h3:last-child {
+  border-bottom: none;
+}
+
+#rightHome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 50%;
+  height: 100%;
+  background-color: white;
+}
+
+nav {
+  background-color: black;
+  height: 10%;
+  justify-content: space-between;
+  display: flex;
+}
+nav div {
+  margin: auto;
+  margin-right: 0px;
+  margin-left: 0px;
+}
+nav a {
+  color: darkgreen;
+}
+nav a:hover {
+  color: lightgreen;
+}
+nav #logo {
+  text-decoration: none;
+}
+nav #logo:hover {
+  color: darkgreen;
+}/*# sourceMappingURL=styles.css.map */

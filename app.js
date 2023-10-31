@@ -1,12 +1,10 @@
-//formatting, sign in, describe api, fill one animal pages with external api info
-//reformat so they can search on the other pages too
+//formatting describe api
 //navbar!
 //upload to the database
-//they need to be able to favorite! and then put those on the dashboard!
 //-->Error-Handler: that acts as a buffer to report errors and continue on to ANY other middleware //-->NotFound: returns status of 404 and message of none existing route
 //pagination for all the pages
 //api description home page
-//WIREFRAMES wip
+//dashboard login database
 
 const express = require("express");
 const path = require("path");
@@ -55,6 +53,8 @@ app.use("/animals", require("./routes/animals"));
 app.use("/animalAPI", require("./routes/api"));
 app.use('/public', express.static('./public'))
 app.use("/externalAPI", require("./routes/externalAPI"));
+let {hello} = require("./upload");
+hello();
 
 const initServer = async() => {
     try {
