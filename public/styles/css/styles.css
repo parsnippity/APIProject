@@ -70,32 +70,34 @@ nav div {
   margin-right: 0px;
   margin-left: 0px;
 }
+nav #logo {
+  text-decoration: none;
+}
+nav #logo:hover {
+  color: darkgreen;
+}
+
 a {
   color: darkgreen;
 }
 a:hover {
   color: lightgreen;
 }
-nav #logo {
-  text-decoration: none;
-}
-nav #logo:hover {
-  color: darkgreen;
-}/*# sourceMappingURL=styles.css.map */
 
 #userInfo {
   border-bottom: darkgreen 0.125em solid;
   padding: 0.5em;
 }
 
-#loginSection, #registerSection {
+#loginSection,
+#registerSection {
   height: 100%;
   width: 100%;
   background-image: url("//res.cloudinary.com/daiu5iwi1/image/upload/v1698788348/Trees_in_the_Forest_fu1kxg.jpg");
   margin: auto;
 }
-
-#loginSection div, #registerSection div {
+#loginSection div,
+#registerSection div {
   background-color: white;
   border: darkgreen 0.125em solid;
   border-radius: 0.25em;
@@ -114,7 +116,8 @@ nav #logo:hover {
   display: flex;
 }
 
-#taxSection, #charSection {
+#taxSection,
+#charSection {
   min-width: 50%;
   min-height: 100%;
   padding: 0.5em;
@@ -125,6 +128,7 @@ nav #logo:hover {
 #taxSection {
   border-right: darkgreen 0.125em solid;
 }
+
 #charSection {
   border-left: darkgreen 0.125em solid;
-}
+}/*# sourceMappingURL=styles.css.map */
