@@ -4,7 +4,19 @@ const {ensureAuthenticated} = require("../config/auth");
 
 //api readme page
 router.get("/", (req, res) => {
-    res.render("/pages/apihowto")
+    if(req.isAuthenticated()) {
+        res.render("pages/apihowto", {
+            url: "/dashboard",
+            label: "Dashboard",
+            msg: ""
+        })
+    } else {
+        res.render("pages/apihowto", {
+            url: "/users/login",
+            label: "Login",
+            msg: ""
+        })
+    }
 })
 
 //homepage page

@@ -1,6 +1,5 @@
-let header = document.getElementById("oneHeader");
 let bits = document.getElementById("bits");
-let animalName = header.getAttribute("value");
+let animalName = bits.getAttribute("value");
 let test = async function() {
   animalName = animalName.split(", ")[0];
   let {data} = await axios.get(`/externalAPI?name=${animalName}`);
